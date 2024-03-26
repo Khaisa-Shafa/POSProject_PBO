@@ -13,19 +13,23 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
-
-
 /**
  *
  * @author VIVOBOOK
  */
 public class POSFrame_login extends javax.swing.JFrame {
     int xx, xy;
+    public static String nama;
 
     public static String hashPassword(String password) {
         try
         {
+<<<<<<< HEAD
+            password= "SELECT password FROM login WHERE username = ?"; // Password yang ingin di-hash
+            MessageDigest md = MessageDigest.getInstance("SHA");
+=======
             MessageDigest md = MessageDigest.getInstance("SHA-256");
+>>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             
             byte[] hashBytes = md.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();
@@ -40,7 +44,7 @@ public class POSFrame_login extends javax.swing.JFrame {
         catch (Exception e) {
             System.out.print(e.getMessage());
         }
-        return null;
+        return password;
     }
     
     /**
@@ -69,7 +73,6 @@ public class POSFrame_login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         t_password = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
-        register = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -144,42 +147,29 @@ public class POSFrame_login extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("LOGIN TO XIGMA");
 
-        register.setText("register");
-        register.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bt_login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bt_login, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(56, 56, 56))
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(t_password, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(118, 118, 118))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(register)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(t_username, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(56, 56, 56))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(118, 118, 118)))
                 .addComponent(background)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_exit)
@@ -202,9 +192,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addComponent(bt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(register)
-                .addGap(26, 26, 26))
+                .addGap(55, 55, 55))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(background)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -271,23 +259,55 @@ public class POSFrame_login extends javax.swing.JFrame {
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
+<<<<<<< HEAD
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useSSL=false", "root", "");
+            Statement stm = con.createStatement();
+=======
             Connection con = DBConnector.connection;
+>>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             
             String username = t_username.getText();
             String password_sql= "SELECT password FROM login WHERE username = ?";
             String password = t_password.getText();
+<<<<<<< HEAD
+            
+            String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
+            ResultSet rs = stm.executeQuery(sql);
+            
+            String hashedPassword = hashPassword(password);
+=======
           
             Statement stm = DBConnector.connection.createStatement();
             String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
             ResultSet rs = stm.executeQuery(sql);
             
             String hashedPassword = hashPassword(username);
+>>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             System.out.println("Hashed Password: " + hashedPassword);
             
             
             if (rs.next())
             {
+                if (rs.getInt("status") == 1)
+                {
+                 
+                    String akses = rs.getString("akses");
+                    System.out.println(akses);
+
+                   if(username.equals("admin") || password.equals(hashedPassword)) {
+                       AdminFrame admin = new AdminFrame();
+                       admin.setVisible(true);
+                       dispose();
+                   }
                 
+<<<<<<< HEAD
+
+                   else if (username.equals("kasir")){
+                       POSFrame kasir = new POSFrame();
+                       kasir.setVisible(true);
+                       dispose();
+                   }
+=======
                 if(username.equals("admin") && hashedPassword.equals(password_sql)) {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
@@ -295,7 +315,9 @@ public class POSFrame_login extends javax.swing.JFrame {
                 else if (username.equals("kasir") && hashedPassword.equals(password)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
+>>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
                 }
+
             }
             else 
             {
@@ -304,25 +326,12 @@ public class POSFrame_login extends javax.swing.JFrame {
                 t_username.setText("");
                 t_password.setText("");
             }
-            
             con.close();
-            
         } 
-        catch (Exception e) 
-        {
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
-        
- 
     }//GEN-LAST:event_bt_loginActionPerformed
-
-    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-
-    }//GEN-LAST:event_registerActionPerformed
-
-    
-
     /**
      * @param args the command line arguments
      */
@@ -367,7 +376,6 @@ public class POSFrame_login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton register;
     private javax.swing.JPasswordField t_password;
     private javax.swing.JTextField t_username;
     // End of variables declaration//GEN-END:variables

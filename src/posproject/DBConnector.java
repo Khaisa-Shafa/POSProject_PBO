@@ -14,7 +14,7 @@ import java.sql.DriverManager;
  * @author VIVOBOOK
  */
 public class DBConnector {
-    static Connection connection;
+    public static Connection connection;
     
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/pos_db";
@@ -36,6 +36,10 @@ public class DBConnector {
         catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+    
+    public static void main (String args []) {
+        System.out.println("Connection is established");
     }
 
 }
