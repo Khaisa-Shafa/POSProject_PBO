@@ -22,10 +22,9 @@ import javax.swing.JOptionPane;
 public class POSFrame_login extends javax.swing.JFrame {
     int xx, xy;
 
-    public static String hashPassword() {
+    public static String hashPassword(String password) {
         try
         {
-            String password= "SELECT password FROM login WHERE username = ?"; // Password yang ingin di-hash
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             
             byte[] hashBytes = md.digest(password.getBytes());
@@ -272,27 +271,28 @@ public class POSFrame_login extends javax.swing.JFrame {
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useSSL=false", "root", "");
+            Connection con = DBConnector.connection;
             
             String username = t_username.getText();
+            String password_sql= "SELECT password FROM login WHERE username = ?";
             String password = t_password.getText();
-            
-            Statement stm = con.createStatement();
-            
+          
+            Statement stm = DBConnector.connection.createStatement();
             String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
             ResultSet rs = stm.executeQuery(sql);
             
-            String hashedPassword = hashPassword();
+            String hashedPassword = hashPassword(username);
             System.out.println("Hashed Password: " + hashedPassword);
+            
             
             if (rs.next())
             {
                 
-                if(username.equals("admin")) {
+                if(username.equals("admin") && hashedPassword.equals(password_sql)) {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
                 }
-                else if (username.equals("kasir")){
+                else if (username.equals("kasir") && hashedPassword.equals(password)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
                 }
