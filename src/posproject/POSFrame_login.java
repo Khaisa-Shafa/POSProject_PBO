@@ -7,9 +7,7 @@ package posproject;
 
 //import java.security.MessageDigest;
 import java.security.MessageDigest;
-import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import static posproject.DBConnector.connection;
@@ -270,15 +268,14 @@ public class POSFrame_login extends javax.swing.JFrame {
           
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery(sql);
-
+            
             if (rs.next())
             {
                 String storedHashPassword = rs.getString("password");
                 if(username.equals("admin") && hashedPassword.equals(storedHashPassword)) {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
-                    dispose();
-                }
+                   }
                 else if (username.equals("kasir") && hashedPassword.equals(storedHashPassword)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
