@@ -12,8 +12,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
-import java.sql.PreparedStatement;
-import posproject.DBConnector;
 
 /**
  *
@@ -22,6 +20,26 @@ import posproject.DBConnector;
 public class POSFrame_login extends javax.swing.JFrame {
     int xx, xy;
     
+    public static String hashPassword(String password) {
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            
+            byte[] hashBytes = md.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            
+            for (byte hashByte : hashBytes) {
+                String hex = Integer.toHexString(0xff & hashByte);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        }
+        catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
+        return password;
+    }
 
     
     /**
@@ -233,7 +251,62 @@ public class POSFrame_login extends javax.swing.JFrame {
     }//GEN-LAST:event_t_passwordFocusLost
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-        
+
+        try 
+        {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            Connection con = DBConnector.connection;
+            
+            String username = t_username.getText();
+            String password_sql= "SELECT password FROM login WHERE username = ?";
+            String password = t_password.getText();
+          
+            Statement stm = DBConnector.connection.createStatement();
+            String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
+            ResultSet rs = stm.executeQuery(sql);
+            
+            String hashedPassword = hashPassword(username);
+            System.out.println("Hashed Password: " + hashedPassword);
+            
+            
+            if (rs.next())
+            {
+                if (rs.getInt("status") == 1)
+                {
+                 
+                    String akses = rs.getString("akses");
+                    System.out.println(akses);
+
+                   if(username.equals("admin") || password.equals(hashedPassword)) {
+                       AdminFrame admin = new AdminFrame();
+                       admin.setVisible(true);
+                       dispose();
+                   }
+
+                if(username.equals("admin") && hashedPassword.equals(password_sql)) {
+                    AdminFrame admin = new AdminFrame();
+                    admin.setVisible(true);
+                }}
+                else if (username.equals("kasir") && hashedPassword.equals(password)){
+                    POSFrame kasir = new POSFrame();
+                    kasir.setVisible(true);
+                }
+
+            }
+            else 
+            {
+                //if username and password is wrong show message
+                JOptionPane.showMessageDialog(this, "username or password is wrong");
+                t_username.setText("");
+                t_password.setText("");
+            }
+            con.close();
+        } 
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }//GEN-LAST:event_bt_loginActionPerformed
     
 
