@@ -5,8 +5,6 @@
 package posproject;
 
 import java.sql.Connection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.sql.DriverManager;
 
 /**
@@ -14,6 +12,7 @@ import java.sql.DriverManager;
  * @author VIVOBOOK
  */
 public class DBConnector {
+    
     public static Connection connection;
     
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -37,9 +36,4 @@ public class DBConnector {
             System.out.println(ex);
         }
     }
-    
-    public static void main (String args []) {
-        System.out.println("Connection is established");
-    }
-
 }

@@ -22,14 +22,14 @@ public class session {
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "");
     }
 
-    public void setAttribute(String id, String username, String admin) throws SQLException {
+    public void setAttribute(String id, String username, String kasir) throws SQLException {
         String query = "INSERT INTO login (id, username, admin) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE username = ?, admin = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, id);
             stmt.setString(2, username);
-            stmt.setString(3, admin);
+            stmt.setString(3, kasir);
             stmt.setString(4, username);
-            stmt.setString(5, admin);
+            stmt.setString(5, kasir);
             
             stmt.executeUpdate();
         }
@@ -42,7 +42,7 @@ public class session {
             stmt.setString(2, username);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getString("admin");
+                    return rs.getString("kasir");
                 }
             }
         }
