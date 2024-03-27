@@ -279,7 +279,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                     admin.setVisible(true);
                     dispose();
                 }
-                else if (username.equals("kasir") && hashedPassword.equals(password)){
+                else if (username.equals("kasir") && hashedPassword.equals(storedHashPassword)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
                     dispose();
