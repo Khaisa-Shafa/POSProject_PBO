@@ -24,12 +24,7 @@ public class POSFrame_login extends javax.swing.JFrame {
     public static String hashPassword(String password) {
         try
         {
-<<<<<<< HEAD
-            password= "SELECT password FROM login WHERE username = ?"; // Password yang ingin di-hash
-            MessageDigest md = MessageDigest.getInstance("SHA");
-=======
             MessageDigest md = MessageDigest.getInstance("SHA-256");
->>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             
             byte[] hashBytes = md.digest(password.getBytes());
             StringBuilder hexString = new StringBuilder();
@@ -259,30 +254,18 @@ public class POSFrame_login extends javax.swing.JFrame {
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-<<<<<<< HEAD
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useSSL=false", "root", "");
-            Statement stm = con.createStatement();
-=======
+
             Connection con = DBConnector.connection;
->>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             
             String username = t_username.getText();
             String password_sql= "SELECT password FROM login WHERE username = ?";
             String password = t_password.getText();
-<<<<<<< HEAD
-            
-            String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
-            ResultSet rs = stm.executeQuery(sql);
-            
-            String hashedPassword = hashPassword(password);
-=======
           
             Statement stm = DBConnector.connection.createStatement();
             String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
             ResultSet rs = stm.executeQuery(sql);
             
             String hashedPassword = hashPassword(username);
->>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
             System.out.println("Hashed Password: " + hashedPassword);
             
             
@@ -299,23 +282,14 @@ public class POSFrame_login extends javax.swing.JFrame {
                        admin.setVisible(true);
                        dispose();
                    }
-                
-<<<<<<< HEAD
 
-                   else if (username.equals("kasir")){
-                       POSFrame kasir = new POSFrame();
-                       kasir.setVisible(true);
-                       dispose();
-                   }
-=======
                 if(username.equals("admin") && hashedPassword.equals(password_sql)) {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
-                }
+                }}
                 else if (username.equals("kasir") && hashedPassword.equals(password)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
->>>>>>> 3a0e1c8b1b1922cf7ed696d57f14da686e6dc495
                 }
 
             }
