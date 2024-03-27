@@ -9,5 +9,8 @@ package posproject;
  * @author USER
  */
 public class ActivityLog {
-    
+    public static void main(String[] args) {
+      ActivityFrame frame = new ActivityFrame();
+      frame.setVisible(true);
+    }
 }
