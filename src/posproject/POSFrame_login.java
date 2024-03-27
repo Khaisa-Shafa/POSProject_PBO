@@ -8,10 +8,11 @@ package posproject;
 //import java.security.MessageDigest;
 import java.security.MessageDigest;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
+import static posproject.DBConnector.connection;
 
 /**
  *
@@ -47,6 +48,7 @@ public class POSFrame_login extends javax.swing.JFrame {
      */
     public POSFrame_login() {
         initComponents();
+
     }
 
     /**
@@ -256,43 +258,32 @@ public class POSFrame_login extends javax.swing.JFrame {
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DBConnector.connection;
+            DBConnector.initDBConnection();
             
             String username = t_username.getText();
-            String password_sql= "SELECT password FROM login WHERE username = ?";
             String password = t_password.getText();
-          
-            Statement stm = DBConnector.connection.createStatement();
-            String sql = "select * from login where username='"+username+"' and Password='"+password+"'";
-            ResultSet rs = stm.executeQuery(sql);
             
-            String hashedPassword = hashPassword(username);
+            String hashedPassword = hashPassword(password);
             System.out.println("Hashed Password: " + hashedPassword);
             
-            
+            String sql = "SELECT password FROM login WHERE username = '"+username+"'";
+          
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery(sql);
+
             if (rs.next())
             {
-                if (rs.getInt("status") == 1)
-                {
-                 
-                    String akses = rs.getString("akses");
-                    System.out.println(akses);
-
-                   if(username.equals("admin") || password.equals(hashedPassword)) {
-                       AdminFrame admin = new AdminFrame();
-                       admin.setVisible(true);
-                       dispose();
-                   }
-
-                if(username.equals("admin") && hashedPassword.equals(password_sql)) {
+                String storedHashPassword = rs.getString("password");
+                if(username.equals("admin") && hashedPassword.equals(storedHashPassword)) {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
-                }}
+                    dispose();
+                }
                 else if (username.equals("kasir") && hashedPassword.equals(password)){
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
+                    dispose();
                 }
-
             }
             else 
             {
@@ -301,7 +292,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                 t_username.setText("");
                 t_password.setText("");
             }
-            con.close();
+            //con.close();
         } 
         catch (Exception e) {
             System.out.println(e.getMessage());

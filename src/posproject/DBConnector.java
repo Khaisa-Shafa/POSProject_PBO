@@ -36,4 +36,7 @@ public class DBConnector {
             System.out.println(ex);
         }
     }
+    public static void main (String args[]) {
+        System.out.println("Connection is established");
+    }
 }
