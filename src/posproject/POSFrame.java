@@ -52,7 +52,7 @@ public class POSFrame extends javax.swing.JFrame {
                     daftarModel.setValueAt(total, baris, 5);
                     
                     float totalBelanja = 0.0f;
-                    total = 0.0f;
+                    
                     
                     for (int i = 0; i < jumlahBelanja; i++)
                     {
@@ -277,7 +277,7 @@ public class POSFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Kembalian");
 
-        keAdmin.setText("Kembali");
+        keAdmin.setText("Ke Admin");
         keAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 keAdminActionPerformed(evt);
@@ -394,7 +394,7 @@ public class POSFrame extends javax.swing.JFrame {
             tempBarang = daftarBarang.get(i);
             
             //WARNING: tempIndex digunakan untuk indexing baris dimulai dari index 0
-            int tempIndex = 0;
+            int tempIndex = jumlahBelanja;
             
             if (tempBarang.kode.equals(kodeInput)) 
             {
@@ -435,12 +435,13 @@ public class POSFrame extends javax.swing.JFrame {
         
         int dibayarInput = Integer.parseInt(dibayarString);
         dibayarTextField.setText(String.format("%,d", dibayarInput));
+        
     }//GEN-LAST:event_dibayarTextFieldKeyReleased
 
     private void keAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keAdminActionPerformed
        AdminFrame a = new AdminFrame();
        a.setVisible(true);
-       this.dispose();
+       dispose();
     }//GEN-LAST:event_keAdminActionPerformed
 
     /**

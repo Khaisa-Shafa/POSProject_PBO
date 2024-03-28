@@ -262,7 +262,7 @@ public class POSFrame_login extends javax.swing.JFrame {
             String password = t_password.getText();
             
             String hashedPassword = hashPassword(password);
-            System.out.println("Hashed Password: " + hashedPassword);
+            //System.out.println("Hashed Password: " + hashedPassword);
             
             String sql = "SELECT password FROM login WHERE username = '"+username+"'";
           
