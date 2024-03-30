@@ -29,12 +29,10 @@ public class POSFrame extends javax.swing.JFrame {
         System.out.println(Barang.daftarBarang.size());
         
         daftarBarang = Barang.daftarBarang;
-        
         System.out.println(daftarBarang.size());
         
         initComponents();
-        
-        
+
         daftarModel = daftarTable.getModel();
         daftarModel.addTableModelListener(new TableModelListener()
             {
@@ -50,10 +48,9 @@ public class POSFrame extends javax.swing.JFrame {
                     
                     float total = harga * jumlah;
                     daftarModel.setValueAt(total, baris, 5);
-                    
+
                     float totalBelanja = 0.0f;
-                    
-                    
+
                     for (int i = 0; i < jumlahBelanja; i++)
                     {
                         total = (float)daftarModel.getValueAt(i, 5);
@@ -98,7 +95,6 @@ public class POSFrame extends javax.swing.JFrame {
         kembalianTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        keAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,13 +273,6 @@ public class POSFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Kembalian");
 
-        keAdmin.setText("Ke Admin");
-        keAdmin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keAdminActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -310,17 +299,14 @@ public class POSFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(keAdmin)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalBelanjaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalBelanjaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -360,9 +346,7 @@ public class POSFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(keAdmin)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -438,12 +422,6 @@ public class POSFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_dibayarTextFieldKeyReleased
 
-    private void keAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keAdminActionPerformed
-       AdminFrame a = new AdminFrame();
-       a.setVisible(true);
-       dispose();
-    }//GEN-LAST:event_keAdminActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -494,7 +472,6 @@ public class POSFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JButton keAdmin;
     private javax.swing.JTextField kembalianTextField;
     private javax.swing.JTextField kodeTextField;
     private javax.swing.JTextField namaTextField;
