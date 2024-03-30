@@ -9,38 +9,34 @@ package posproject.SESSION;
  * @author VIVOBOOK
  */
 public class Session {
-    private  String nama;
-    private  String id;
-    private  String level;
-
-    public Session(String nama, String id, String level) {
-        this.nama = nama;
-        this.id = id;
-        this.level = level;
-    }
     
-    public String get_nama() {
+    
+    private  static String nama;
+    private  static String id;
+    private  static String level;
+    
+    public static String get_nama() {
         return nama;
     }
-    public void set_nama(String nama) {
-        this.nama = nama;
+    public static void set_nama(String nama) {
+        Session.nama = nama;
     }
     
-    public String get_id() {
+    public static String get_id() {
         return id;
     }
-    public void set_id(String id) {
-        this.id = id;
+    public static void set_id(String id) {
+        Session.id = id;
     }
     
-    public String get_level() {
+    public static String get_level() {
         return level;
     }
-    public void set_lvl(String level) {
-        this.level = level;
+    public static void set_level(String level) {
+        Session.level = level;
     }
     
-    public void main(String args[]) {
+    public static void main(String args[]) {
         System.out.println("session");
     }
 

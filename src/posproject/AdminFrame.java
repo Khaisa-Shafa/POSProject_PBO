@@ -5,6 +5,7 @@
 package posproject;
 
 import java.awt.Color;
+import posproject.SESSION.Session;
 
 /**
  *
@@ -19,7 +20,20 @@ public class AdminFrame extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         menu1.initMoving(AdminFrame.this);
+        lblSnama.setText(Session.get_nama());
+//        cek_level();
     }
+    
+//    private void cek_level(){
+//        String a = Session.get_level();
+//        if(a == null){
+//            .Mlogout.setVisible(false); (tombol logout)
+//            Mdata.setVisible(false);      
+//        }
+//        else {
+//            Mlogin.setVisible(false);     (tombol login)
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,12 +46,14 @@ public class AdminFrame extends javax.swing.JFrame {
 
         panelBorder1 = new posproject.PanelBorder();
         menu1 = new posproject.Menu();
+        lblSnama = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(679, 355));
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblSnama.setText("jLabel1");
 
         javax.swing.GroupLayout panelBorder1Layout = new javax.swing.GroupLayout(panelBorder1);
         panelBorder1.setLayout(panelBorder1Layout);
@@ -45,11 +61,17 @@ public class AdminFrame extends javax.swing.JFrame {
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 502, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSnama)
+                .addGap(0, 459, Short.MAX_VALUE))
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+            .addGroup(panelBorder1Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(lblSnama)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -103,6 +125,7 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel lblSnama;
     private posproject.Menu menu1;
     private posproject.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables
