@@ -23,6 +23,7 @@ public class POSFrame extends javax.swing.JFrame {
      * Creates new form POSFrame
      */
     public POSFrame() {
+         initComponents();
         DBConnector.initDBConnection();
         
         Barang.loadBarangFromDB();
@@ -31,7 +32,7 @@ public class POSFrame extends javax.swing.JFrame {
         daftarBarang = Barang.daftarBarang;
         System.out.println(daftarBarang.size());
         
-        initComponents();
+       
 
         daftarModel = daftarTable.getModel();
         daftarModel.addTableModelListener(new TableModelListener()
@@ -50,6 +51,7 @@ public class POSFrame extends javax.swing.JFrame {
                     daftarModel.setValueAt(total, baris, 5);
 
                     float totalBelanja = 0.0f;
+                    total = 0.0f;
 
                     for (int i = 0; i < jumlahBelanja; i++)
                     {
@@ -378,7 +380,7 @@ public class POSFrame extends javax.swing.JFrame {
             tempBarang = daftarBarang.get(i);
             
             //WARNING: tempIndex digunakan untuk indexing baris dimulai dari index 0
-            int tempIndex = jumlahBelanja;
+            int tempIndex = 0 ;
             
             if (tempBarang.kode.equals(kodeInput)) 
             {
@@ -402,23 +404,30 @@ public class POSFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_kodeTextFieldActionPerformed
 
     private void dibayarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dibayarTextFieldActionPerformed
-        float totalBelanja = Float.parseFloat(totalBelanjaTextField.getText());
-        int totalBelanjaInt = (int)totalBelanja;
-        
-        float dibayar = Float.parseFloat(dibayarTextField.getText());
-        int dibayarInt = (int)dibayar;
-        
+
+        String totalBelanjaString = totalBelanjaTextField.getText().replace(",", "");
+        float totalBelanja = Float.parseFloat(totalBelanjaString);
+        int totalBelanjaInt = (int) totalBelanja;
+
+        String dibayarString = dibayarTextField.getText().replace(",", "");
+        float dibayar = Float.parseFloat(dibayarString);
+        int dibayarInt = (int) dibayar;
+
         int kembalianInt = dibayarInt - totalBelanjaInt;
-        kembalianTextField.setText(String.format("%,d", kembalianInt));                                            
+        kembalianTextField.setText(String.format("%,d", kembalianInt));
 
     }//GEN-LAST:event_dibayarTextFieldActionPerformed
 
     private void dibayarTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibayarTextFieldKeyReleased
-        String dibayarString = dibayarTextField.getText();
-        dibayarString = dibayarString.replace(",", "");
+        String dibayarString = dibayarTextField.getText().replace(",", "");
         
+        try{
         int dibayarInput = Integer.parseInt(dibayarString);
         dibayarTextField.setText(String.format("%,d", dibayarInput));
+        }
+        catch (NumberFormatException ex){
+            System.out.println(ex);
+        }
         
     }//GEN-LAST:event_dibayarTextFieldKeyReleased
 
