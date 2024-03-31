@@ -17,36 +17,10 @@ public class ActivityFrame extends javax.swing.JFrame {
     /**
      * Creates new form ActivityFrame
      */
-    ArrayList<ActivityLog_Component> daftarActivity;
     TableModel daftarModel;
     public ActivityFrame() {
-        
-        // Simulasi pengguna melakukan login
-        String userlogin= "user123";
-        LocalDateTime loginTime = LocalDateTime.now();
-        String loginAction = "LI"; // Login action
-        ActivityLog_Component loginEntry = new ActivityLog_Component(userlogin, loginTime, loginAction);
-
-        // Simulasi pengguna melakukan transaksi
-        String transactionId = "TR ID 451";
-        String usertransaksi= "user123";
-        LocalDateTime transactionTime = LocalDateTime.now();
-        String transactionAction = "TR"; // Transaction action
-        String transactionActionWithId = transactionAction + " " + transactionId; // Including transaction ID
-        ActivityLog_Component transactionEntry = new ActivityLog_Component(usertransaksi, transactionTime, transactionActionWithId);
-        
-        System.out.println("Login:");
-        System.out.println("Username: " + loginEntry.getUser());
-        System.out.println("Timestamp: " + loginEntry.getWaktu());
-        System.out.println("Action: " + loginEntry.getAksi());
-
-        System.out.println("\nTransaction:");
-        System.out.println("Username: " + transactionEntry.getUser());
-        System.out.println("Timestamp: " + transactionEntry.getWaktu());
-        System.out.println("Action: " + transactionEntry.getAksi());
-        
-        initComponents();
-        
+              
+        initComponents();      
         daftarModel = ActivityLog_Table.getModel();
     }
 
