@@ -13,52 +13,23 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.time.format.DateTimeFormatter;
 import static posproject.DBConnector.connection;
 
 public class ActivityLog_Component {
-    private String username;
-    private LocalDateTime waktu;
-    private String aksi;
-    
-    public ActivityLog_Component(String username, LocalDateTime waktu, String aksi) {
-        this.username = username;
-        this.waktu = waktu;
-        this.aksi = aksi;
-    }
-
-    static ArrayList<ActivityLog_Component> daftarActivity;
-    public String getUser() {
-        return username;
-    }
-
-    public LocalDateTime getWaktu() {
-        return waktu;
-    }
-
-    public String getAksi() {
-        return aksi;
-    }
-    
-    public static void insertActivityToDB(ActivityLog_Component activity)
+    public static void insertActivityToDB(String user, String aksi)
     {
-        daftarActivity= new ArrayList<ActivityLog_Component>();
+        System.out.println("Masuk ke insertActivityToDB");
         try
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            DBConnector.initDBConnection();
-            //gimana semua yg sebaris terambil, gimana ngambil dll.
+            DBConnector.initDBConnection(); 
             
-            String sql= "SELECT * FROM activity_log";
-          
-            PreparedStatement stm = connection.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery(sql);
-            while (rs.next()) {
-                String username = rs.getString("username");
-                LocalDateTime waktu = rs.getTimestamp("waktu").toLocalDateTime();
-                String aksi = rs.getString("aksi");
-                
-                String sql_in = "INSERT id FROM activity_log (username, waktu, aksi) VALUES (?, ?, ?)";
-            }
+            LocalDateTime waktu = LocalDateTime.now();          
+            
+            String sql_in = "INSERT INTO activity_log (username, waktu, aksi) VALUES ('" + user + "','" + waktu + "','" + aksi + "')";
+
+            PreparedStatement stm = connection.prepareStatement(sql_in);          
         } catch (Exception ex)
         {
             
@@ -66,7 +37,7 @@ public class ActivityLog_Component {
     }
     public static void loadActivityFromDB(LocalDateTime mulai, LocalDateTime selesai)
     {
-        daftarActivity= new ArrayList<ActivityLog_Component>();
+//        daftarActivity= new ArrayList<ActivityLog_Component>();
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -82,15 +53,16 @@ public class ActivityLog_Component {
             
             while (rs.next()) {
                 String username = rs.getString("username");
-                LocalDateTime waktu = rs.getTimestamp("waktu").toLocalDateTime();
+                LocalDateTime rawformat = rs.getTimestamp("waktu").toLocalDateTime();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                String waktu = rawformat.format(formatter); 
                 String aksi = rs.getString("aksi");
-
-                ActivityLog_Component activity = new ActivityLog_Component(username, waktu, aksi);
-            daftarActivity.add(activity);
-        }
-        } catch (Exception ex)
-        {
+//            daftarActivity.add(activity);
+            }
+            
+        } catch (Exception ex){
             System.out.print(ex);
         }
     }
+       
 }
