@@ -25,11 +25,15 @@ public class ActivityLog_Component {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DBConnector.initDBConnection(); 
             
-            LocalDateTime waktu = LocalDateTime.now();          
+            LocalDateTime waktu = LocalDateTime.now();  
+            Timestamp waktuTimestamp = Timestamp.valueOf(waktu);
             
-            String sql_in = "INSERT INTO activity_log (username, waktu, aksi) VALUES ('" + user + "','" + waktu + "','" + aksi + "')";
-
-            PreparedStatement stm = connection.prepareStatement(sql_in);          
+            String sql_in = "INSERT INTO activity_log (username, waktu, aksi) VALUES (?, ?, ?)";
+            PreparedStatement stm = connection.prepareStatement(sql_in);
+            stm.setString(1, user);
+            stm.setTimestamp(2, waktuTimestamp);
+            stm.setString(3, aksi);
+            int rowsInserted = stm.executeUpdate();       
         } catch (Exception ex)
         {
             

@@ -278,7 +278,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Halo " + rs.getString("username"));
                     Session.set_nama(rs.getString("username"));
                     Session.set_id(rs.getString("id"));
-//                    Session.set_level(rs.getString("level"));
+                    Session.set_level(rs.getString("level"));
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
 
