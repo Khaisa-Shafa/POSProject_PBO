@@ -9,8 +9,6 @@ package posproject.SESSION;
  * @author VIVOBOOK
  */
 public class Session {
-    
-    
     private  static String nama;
     private  static String id;
     private  static String level;

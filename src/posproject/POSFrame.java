@@ -404,7 +404,6 @@ public class POSFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_kodeTextFieldActionPerformed
 
     private void dibayarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dibayarTextFieldActionPerformed
-
         String totalBelanjaString = totalBelanjaTextField.getText().replace(",", "");
         float totalBelanja = Float.parseFloat(totalBelanjaString);
         int totalBelanjaInt = (int) totalBelanja;
