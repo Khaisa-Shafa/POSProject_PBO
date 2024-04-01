@@ -4,9 +4,7 @@
  */
 package posproject;
 
-import java.util.ArrayList;
 import javax.swing.table.TableModel;
-import java.time.LocalDateTime;
 
 /**
  *
