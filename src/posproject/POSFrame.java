@@ -49,7 +49,7 @@ public class POSFrame extends javax.swing.JFrame {
                     
                     float total = harga * jumlah;
                     daftarModel.setValueAt(total, baris, 5);
-
+                    
                     float totalBelanja = 0.0f;
                     total = 0.0f;
 
@@ -97,6 +97,9 @@ public class POSFrame extends javax.swing.JFrame {
         kembalianTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jumlahTextField = new javax.swing.JTextField();
+        insertButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -275,6 +278,21 @@ public class POSFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Kembalian");
 
+        jLabel7.setText("Jumlah");
+
+        jumlahTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jumlahTextFieldActionPerformed(evt);
+            }
+        });
+
+        insertButton.setText("Masukkan");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -283,7 +301,13 @@ public class POSFrame extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jumlahTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
@@ -321,7 +345,10 @@ public class POSFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jumlahTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insertButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -348,7 +375,7 @@ public class POSFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -391,13 +418,6 @@ public class POSFrame extends javax.swing.JFrame {
                 i = daftarBarang.size();
                 namaTextField.setText(tempBarang.nama);
                 hargaTextField.setText(Float.toString(tempBarang.harga));
-                
-                daftarModel.setValueAt(jumlahBelanja, tempIndex, 0);
-                daftarModel.setValueAt(kodeInput, tempIndex, 1);
-                daftarModel.setValueAt(tempBarang.nama, tempIndex, 2);
-                daftarModel.setValueAt(tempBarang.harga, tempIndex, 3);
-                daftarModel.setValueAt(1, tempIndex, 4);
-                
             }
         }
 
@@ -414,7 +434,9 @@ public class POSFrame extends javax.swing.JFrame {
 
         int kembalianInt = dibayarInt - totalBelanjaInt;
         kembalianTextField.setText(String.format("%,d", kembalianInt));
-
+        
+        Transaksi_Component.InsertTransaksitoDB(totalBelanjaInt);
+        ActivityLog_Component.insertActivityToDB("Kasir", "Transaksi");
     }//GEN-LAST:event_dibayarTextFieldActionPerformed
 
     private void dibayarTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibayarTextFieldKeyReleased
@@ -429,6 +451,27 @@ public class POSFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_dibayarTextFieldKeyReleased
+
+    private void jumlahTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jumlahTextFieldActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String kodeInput = kodeTextField.getText();
+        String jumlah = jumlahTextField.getText();
+        Barang tempBarang;
+        for (int i = 0; i < daftarBarang.size(); i++) 
+        {
+            tempBarang = daftarBarang.get(i);
+            int tempIndex = 0 ;
+            daftarModel.setValueAt(jumlahBelanja, tempIndex, 0);
+            daftarModel.setValueAt(kodeInput, tempIndex, 1);
+            daftarModel.setValueAt(tempBarang.nama, tempIndex, 2);
+            daftarModel.setValueAt(tempBarang.harga, tempIndex, 3);
+            daftarModel.setValueAt(jumlah, tempIndex, 4);
+        }
+        
+    }//GEN-LAST:event_insertButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,17 +512,20 @@ public class POSFrame extends javax.swing.JFrame {
     private javax.swing.JTable daftarTable;
     private javax.swing.JTextField dibayarTextField;
     private javax.swing.JTextField hargaTextField;
+    private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTextField jumlahTextField;
     private javax.swing.JTextField kembalianTextField;
     private javax.swing.JTextField kodeTextField;
     private javax.swing.JTextField namaTextField;
