@@ -10,6 +10,7 @@ import java.security.MessageDigest;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JOptionPane;
 import static posproject.DBConnector.connection;
 import posproject.SESSION.Session;
@@ -282,8 +283,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
 
-                    ActivityLog_Component activity = new ActivityLog_Component();
-                    activity.insertActivityToDB(username, "Login");
+                    ActivityLog_Component.insertActivityToDB(username, "Login");
                     
                     dispose();
                    }
@@ -292,8 +292,7 @@ public class POSFrame_login extends javax.swing.JFrame {
                     POSFrame kasir = new POSFrame();
                     kasir.setVisible(true);
                     
-                    ActivityLog_Component activity = new ActivityLog_Component();
-                    activity.insertActivityToDB(username, "Login");
+                    ActivityLog_Component.insertActivityToDB(username, "Login");
                     
                     dispose();
                 }

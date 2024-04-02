@@ -4,6 +4,8 @@
  */
 package posproject;
 
+import java.util.Date;
+import java.util.List;
 import javax.swing.table.TableModel;
 
 /**
@@ -18,7 +20,7 @@ public class ActivityFrame extends javax.swing.JFrame {
     TableModel daftarModel;
     public ActivityFrame() {
               
-        initComponents();      
+        initComponents();
         daftarModel = ActivityLog_Table.getModel();
     }
 
@@ -50,10 +52,11 @@ public class ActivityFrame extends javax.swing.JFrame {
         DeskripsiTextField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dariTanggal = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        sampaiTanggal = new com.toedter.calendar.JDateChooser();
         jSeparator1 = new javax.swing.JSeparator();
+        ButtonInputTanggal = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -194,6 +197,7 @@ public class ActivityFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(ActivityLog_Table);
         if (ActivityLog_Table.getColumnModel().getColumnCount() > 0) {
+            ActivityLog_Table.getColumnModel().getColumn(0).setResizable(false);
             ActivityLog_Table.getColumnModel().getColumn(0).setPreferredWidth(5);
             ActivityLog_Table.getColumnModel().getColumn(1).setResizable(false);
             ActivityLog_Table.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -235,6 +239,13 @@ public class ActivityFrame extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Sampai Tanggal :");
 
+        ButtonInputTanggal.setText("Pilih");
+        ButtonInputTanggal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonInputTanggalActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -267,11 +278,13 @@ public class ActivityFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dariTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sampaiTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)
+                        .addComponent(ButtonInputTanggal))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1038, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -286,8 +299,9 @@ public class ActivityFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel1)
                         .addComponent(jLabel5))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dariTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sampaiTanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonInputTanggal))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -349,6 +363,21 @@ public class ActivityFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DeskripsiTextFieldActionPerformed
 
+    private void ButtonInputTanggalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonInputTanggalActionPerformed
+        Date mulai = dariTanggal.getDate();
+        Date selesai = sampaiTanggal.getDate();
+
+        List<ActivityLog_Component> daftarAktivitas = ActivityLog_Component.loadActivityFromDB(mulai, selesai);
+
+        for (int i = 0; i < daftarAktivitas.size(); i++) {
+            ActivityLog_Component activity = daftarAktivitas.get(i);
+            daftarModel.setValueAt(activity.getId(), i, 0);
+            daftarModel.setValueAt(activity.getAksi(), i, 1);
+            daftarModel.setValueAt(activity.getWaktu(), i, 2);
+            daftarModel.setValueAt(activity.getUsername(), i, 3);
+        }
+    }//GEN-LAST:event_ButtonInputTanggalActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -386,12 +415,12 @@ public class ActivityFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable ActivityLog_Table;
+    private javax.swing.JButton ButtonInputTanggal;
     private javax.swing.JTextField DeskripsiTextField;
     private javax.swing.JTextField UserTextField;
     private javax.swing.JTextField WaktuTextField;
+    private com.toedter.calendar.JDateChooser dariTanggal;
     private org.jdatepicker.impl.DateComponentFormatter dateComponentFormatter1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private org.jdatepicker.JDateComponentFactory jDateComponentFactory1;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil1;
     private org.jdatepicker.util.JDatePickerUtil jDatePickerUtil2;
@@ -408,5 +437,6 @@ public class ActivityFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private com.toedter.calendar.JDateChooser sampaiTanggal;
     // End of variables declaration//GEN-END:variables
 }
