@@ -12,8 +12,6 @@ import java.awt.RenderingHints;
 
 public class MenuItem extends javax.swing.JPanel {
 
-    
-
     private boolean selected;
     
     public MenuItem(Model_Menu data) {
