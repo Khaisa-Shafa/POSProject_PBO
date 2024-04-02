@@ -18,10 +18,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
      * Creates new form TransaksiFrame
      */
     TableModel daftarModel;
+    TableModel daftarModel1;
     public TransaksiFrame() {
         initComponents();
         daftarModel = DaftarTransaksi.getModel();
-        daftarModel = DaftarBarang.getModel();
+        daftarModel1 = DaftarBarang.getModel();
     }
 
     /**
@@ -364,6 +365,11 @@ public class TransaksiFrame extends javax.swing.JFrame {
 
         IdTextField.setForeground(new java.awt.Color(50, 50, 50));
         IdTextField.setToolTipText("");
+        IdTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IdTextFieldActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("ID");
         jLabel6.setToolTipText("");
@@ -483,16 +489,19 @@ public class TransaksiFrame extends javax.swing.JFrame {
         Date mulai = dariTanggal.getDate();
         Date selesai = sampaiTanggal.getDate();
 
-        List<ActivityLog_Component> daftarTransaksi = ActivityLog_Component.loadActivityFromDB(mulai, selesai);
+        List<Transaksi_Component> daftarTransaksi = Transaksi_Component.loadTransaksiFromDB(mulai, selesai);
 
         for (int i = 0; i < daftarTransaksi.size(); i++) {
-            ActivityLog_Component activity = daftarTransaksi.get(i);
-            daftarModel.setValueAt(activity.getId(), i, 0);
-            daftarModel.setValueAt(activity.getAksi(), i, 1);
-            daftarModel.setValueAt(activity.getWaktu(), i, 2);
-            daftarModel.setValueAt(activity.getUsername(), i, 3);
+            Transaksi_Component transaksi = daftarTransaksi.get(i);
+            daftarModel.setValueAt(transaksi.getId(), i, 0);
+            daftarModel.setValueAt(transaksi.getTotal(), i, 1);
+            daftarModel.setValueAt(transaksi.getWaktu(), i, 2);
         }
     }//GEN-LAST:event_ButtonInputTanggalActionPerformed
+
+    private void IdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IdTextFieldActionPerformed
 
     /**
      * @param args the command line arguments

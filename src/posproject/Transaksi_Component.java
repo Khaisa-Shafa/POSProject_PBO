@@ -19,25 +19,37 @@ import static posproject.DBConnector.connection;
  * @author USER
  */
 public class Transaksi_Component {
+    private int id_transaksi;
+    private String total;
+    private String waktu;
+
+    // Constructor
+    public Transaksi_Component(int id_transaksi, String total, String waktu) {
+        this.id_transaksi = id_transaksi;
+        this.total = total;
+        this.waktu = waktu;
+    }
+    public int getId() {
+        return id_transaksi;
+    }
     
+    public String getTotal() {
+        return total;
+    }
+
+    public String getWaktu() {
+        return waktu;
+    }
     
     public static void addBarangtoTransaksi(int kode, String nama, int harga, int jumlah, int total) {
-        
+        System.out.println("Masuk ke addBarang");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DBConnector.initDBConnection();
-            //idtransaksi
-            String id = "SELECT * FROM Transaksi ORDER BY id_transaksi DESC LIMIT 1";
-            PreparedStatement statement = connection.prepareStatement(id);
-            ResultSet resultSet = statement.executeQuery();
 
             int id_sekarang = 0;
-            if (resultSet.next()) {
-            id_sekarang = resultSet.getInt("id_transaksi");
-            id_sekarang++;
-            }
             
-            String query = "INSERT INTO transakasibarang (id_transaksi, kode, harga, jumlah, totalbarang) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO transaksi_barang (id_transaksi, kode, harga, jumlah, totalbarang) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stm = connection.prepareStatement(query);
             stm.setInt(1, id_sekarang);
             stm.setInt(2, kode);
@@ -47,37 +59,60 @@ public class Transaksi_Component {
             stm.setInt(6, total);
             stm.executeUpdate();
             stm.close();
-            
+            System.out.println("Berhasilbarang");
         } catch (Exception ex) {
         }
     }
         
     public static void InsertTransaksitoDB(int total) {
-        
+        System.out.println(total);
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DBConnector.initDBConnection();
-            
-            //idtransaksi
-            String idtrans = "SELECT * FROM Transaksi ORDER BY id_transaksi DESC LIMIT 1";
-            PreparedStatement statement = connection.prepareStatement(idtrans);
-            ResultSet resultSet = statement.executeQuery();
 
-            int id_sekarang1 = 0;
-            if (resultSet.next()) {
-            id_sekarang1 = resultSet.getInt("id_transaksi");
-            id_sekarang1++;
-            };
+            LocalDateTime waktu = LocalDateTime.now();  
+            Timestamp waktuTimestamp = Timestamp.valueOf(waktu);
             
-
-            String query = "INSERT INTO transakasibarang (id_transaksi, total) VALUES (?)";
+            String query = "INSERT INTO transaksi (total, waktu) VALUES (?, ?)";
             PreparedStatement stm = connection.prepareStatement(query);
-            stm.setInt(1, id_sekarang1);
-            stm.setInt(2, total);
-            stm.executeUpdate();
-            stm.close();           
-            
+            stm.setInt(1, total);
+            stm.setTimestamp(2,waktuTimestamp);
+            int rowsInserted = stm.executeUpdate();         
+            System.out.println("Berhasil transaksi");
         } catch (Exception ex) {
         }
     }
+    
+    public static List<Transaksi_Component> loadTransaksiFromDB(Date mulai, Date selesai) {
+    List<Transaksi_Component> transaksiList = new ArrayList<>();
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        DBConnector.initDBConnection();
+
+        Timestamp mulaitime = new Timestamp(mulai.getTime());
+        Timestamp selesaitime = new Timestamp(selesai.getTime());
+
+        String sql = "SELECT * FROM transaksi WHERE waktu >= ? AND waktu <= ?";
+        PreparedStatement stm = connection.prepareStatement(sql);
+        stm.setTimestamp(1, mulaitime);
+        stm.setTimestamp(2, selesaitime);
+
+        ResultSet rs = stm.executeQuery();
+
+        while (rs.next()) {
+            int id_transaksi = rs.getInt("id_transaksi");
+            String total = Integer.toString(rs.getInt("total"));
+            LocalDateTime rawformat = rs.getTimestamp("waktu").toLocalDateTime();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String waktu = rawformat.format(formatter);
+
+            Transaksi_Component transaksi = new Transaksi_Component(id_transaksi, total, waktu);
+            transaksiList.add(transaksi);
+        }
+    } catch (Exception ex) {
+        System.out.print(ex);
+    }
+
+    return (transaksiList);}
 }
