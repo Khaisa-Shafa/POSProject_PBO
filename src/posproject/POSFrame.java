@@ -100,6 +100,7 @@ public class POSFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jumlahTextField = new javax.swing.JTextField();
         insertButton = new javax.swing.JButton();
+        SelesaiButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -293,6 +294,13 @@ public class POSFrame extends javax.swing.JFrame {
             }
         });
 
+        SelesaiButton.setText("Selesai");
+        SelesaiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelesaiButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -323,11 +331,17 @@ public class POSFrame extends javax.swing.JFrame {
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addComponent(jSeparator2)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(SelesaiButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -370,12 +384,13 @@ public class POSFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SelesaiButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -405,14 +420,9 @@ public class POSFrame extends javax.swing.JFrame {
         for (int i = 0; i < daftarBarang.size(); i++) 
         {
             tempBarang = daftarBarang.get(i);
-            
-            //WARNING: tempIndex digunakan untuk indexing baris dimulai dari index 0
-            int tempIndex = 0 ;
-            
+
             if (tempBarang.kode.equals(kodeInput)) 
             {
-                tempIndex = jumlahBelanja;
-                jumlahBelanja++;
                 
                 System.out.println("Barang Ditemukan");
                 i = daftarBarang.size();
@@ -434,6 +444,7 @@ public class POSFrame extends javax.swing.JFrame {
 
         int kembalianInt = dibayarInt - totalBelanjaInt;
         kembalianTextField.setText(String.format("%,d", kembalianInt));
+        
         
         Transaksi_Component.InsertTransaksitoDB(totalBelanjaInt);
         ActivityLog_Component.insertActivityToDB("Kasir", "Transaksi");
@@ -460,10 +471,14 @@ public class POSFrame extends javax.swing.JFrame {
         String kodeInput = kodeTextField.getText();
         String jumlah = jumlahTextField.getText();
         Barang tempBarang;
+        int tempIndex = 0 ;
         for (int i = 0; i < daftarBarang.size(); i++) 
         {
             tempBarang = daftarBarang.get(i);
-            int tempIndex = 0 ;
+            
+            tempIndex = jumlahBelanja;
+            jumlahBelanja++;
+
             daftarModel.setValueAt(jumlahBelanja, tempIndex, 0);
             daftarModel.setValueAt(kodeInput, tempIndex, 1);
             daftarModel.setValueAt(tempBarang.nama, tempIndex, 2);
@@ -472,6 +487,21 @@ public class POSFrame extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_insertButtonActionPerformed
+
+    private void SelesaiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelesaiButtonActionPerformed
+        if (daftarBarang.size()>=0)
+        {
+
+        for (int i = 0; i < daftarTable.getRowCount(); i++) {
+            int kodeInput = (int) daftarTable.getValueAt(i, 1);
+            String namaBarang = (String) daftarTable.getValueAt(i,2);
+            int harga = (int)daftarTable.getValueAt(i, 3);
+            int jumlah = (int) daftarTable.getValueAt(i, 4);
+            int total = Integer.parseInt(totalBelanjaTextField.getText());
+            Transaksi_Component.addBarangtoTransaksi(kodeInput, namaBarang, harga, jumlah, total);
+        }
+        }
+    }//GEN-LAST:event_SelesaiButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,6 +539,7 @@ public class POSFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton SelesaiButton;
     private javax.swing.JTable daftarTable;
     private javax.swing.JTextField dibayarTextField;
     private javax.swing.JTextField hargaTextField;

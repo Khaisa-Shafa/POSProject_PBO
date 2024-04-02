@@ -21,7 +21,7 @@ import static posproject.DBConnector.connection;
 public class Transaksi_Component {
     
     
-    public static void addBarangtoTransaksi(int kode, int harga, int jumlah) {
+    public static void addBarangtoTransaksi(int kode, String nama, int harga, int jumlah, int total) {
         
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -37,12 +37,14 @@ public class Transaksi_Component {
             id_sekarang++;
             }
             
-            String query = "INSERT INTO transakasibarang (id_transaksi, kode, harga, jumlah) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO transakasibarang (id_transaksi, kode, harga, jumlah, totalbarang) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stm = connection.prepareStatement(query);
             stm.setInt(1, id_sekarang);
             stm.setInt(2, kode);
-            stm.setInt(3, harga);
-            stm.setInt(4, jumlah);
+            stm.setString(3, nama);
+            stm.setInt(4, harga);
+            stm.setInt(5, jumlah);
+            stm.setInt(6, total);
             stm.executeUpdate();
             stm.close();
             
