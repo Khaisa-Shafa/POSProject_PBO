@@ -23,18 +23,17 @@ public class POSFrame extends javax.swing.JFrame {
      * Creates new form POSFrame
      */
     public POSFrame() {
+         initComponents();
         DBConnector.initDBConnection();
         
         Barang.loadBarangFromDB();
         System.out.println(Barang.daftarBarang.size());
         
         daftarBarang = Barang.daftarBarang;
-        
         System.out.println(daftarBarang.size());
         
-        initComponents();
-        
-        
+       
+
         daftarModel = daftarTable.getModel();
         daftarModel.addTableModelListener(new TableModelListener()
             {
@@ -53,7 +52,7 @@ public class POSFrame extends javax.swing.JFrame {
                     
                     float totalBelanja = 0.0f;
                     total = 0.0f;
-                    
+
                     for (int i = 0; i < jumlahBelanja; i++)
                     {
                         total = (float)daftarModel.getValueAt(i, 5);
@@ -98,7 +97,9 @@ public class POSFrame extends javax.swing.JFrame {
         kembalianTextField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        keAdmin = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jumlahTextField = new javax.swing.JTextField();
+        insertButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -277,10 +278,18 @@ public class POSFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Kembalian");
 
-        keAdmin.setText("Kembali");
-        keAdmin.addActionListener(new java.awt.event.ActionListener() {
+        jLabel7.setText("Jumlah");
+
+        jumlahTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                keAdminActionPerformed(evt);
+                jumlahTextFieldActionPerformed(evt);
+            }
+        });
+
+        insertButton.setText("Masukkan");
+        insertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertButtonActionPerformed(evt);
             }
         });
 
@@ -292,7 +301,13 @@ public class POSFrame extends javax.swing.JFrame {
                 .addGap(45, 45, 45)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jumlahTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addComponent(insertButton, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(43, 43, 43)
@@ -310,17 +325,14 @@ public class POSFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(keAdmin)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalBelanjaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dibayarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalBelanjaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -333,7 +345,10 @@ public class POSFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(kodeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jumlahTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(insertButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -360,9 +375,7 @@ public class POSFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(kembalianTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(keAdmin)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -394,7 +407,7 @@ public class POSFrame extends javax.swing.JFrame {
             tempBarang = daftarBarang.get(i);
             
             //WARNING: tempIndex digunakan untuk indexing baris dimulai dari index 0
-            int tempIndex = 0;
+            int tempIndex = 0 ;
             
             if (tempBarang.kode.equals(kodeInput)) 
             {
@@ -405,43 +418,60 @@ public class POSFrame extends javax.swing.JFrame {
                 i = daftarBarang.size();
                 namaTextField.setText(tempBarang.nama);
                 hargaTextField.setText(Float.toString(tempBarang.harga));
-                
-                daftarModel.setValueAt(jumlahBelanja, tempIndex, 0);
-                daftarModel.setValueAt(kodeInput, tempIndex, 1);
-                daftarModel.setValueAt(tempBarang.nama, tempIndex, 2);
-                daftarModel.setValueAt(tempBarang.harga, tempIndex, 3);
-                daftarModel.setValueAt(1, tempIndex, 4);
-                
             }
         }
 
     }//GEN-LAST:event_kodeTextFieldActionPerformed
 
     private void dibayarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dibayarTextFieldActionPerformed
-        float totalBelanja = Float.parseFloat(totalBelanjaTextField.getText());
-        int totalBelanjaInt = (int)totalBelanja;
-        
-        float dibayar = Float.parseFloat(dibayarTextField.getText());
-        int dibayarInt = (int)dibayar;
-        
-        int kembalianInt = dibayarInt - totalBelanjaInt;
-        kembalianTextField.setText(String.format("%,d", kembalianInt));                                            
+        String totalBelanjaString = totalBelanjaTextField.getText().replace(",", "");
+        float totalBelanja = Float.parseFloat(totalBelanjaString);
+        int totalBelanjaInt = (int) totalBelanja;
 
+        String dibayarString = dibayarTextField.getText().replace(",", "");
+        float dibayar = Float.parseFloat(dibayarString);
+        int dibayarInt = (int) dibayar;
+
+        int kembalianInt = dibayarInt - totalBelanjaInt;
+        kembalianTextField.setText(String.format("%,d", kembalianInt));
+        
+        Transaksi_Component.InsertTransaksitoDB(totalBelanjaInt);
+        ActivityLog_Component.insertActivityToDB("Kasir", "Transaksi");
     }//GEN-LAST:event_dibayarTextFieldActionPerformed
 
     private void dibayarTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibayarTextFieldKeyReleased
-        String dibayarString = dibayarTextField.getText();
-        dibayarString = dibayarString.replace(",", "");
+        String dibayarString = dibayarTextField.getText().replace(",", "");
         
+        try{
         int dibayarInput = Integer.parseInt(dibayarString);
         dibayarTextField.setText(String.format("%,d", dibayarInput));
+        }
+        catch (NumberFormatException ex){
+            System.out.println(ex);
+        }
+        
     }//GEN-LAST:event_dibayarTextFieldKeyReleased
 
-    private void keAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keAdminActionPerformed
-       AdminFrame a = new AdminFrame();
-       a.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_keAdminActionPerformed
+    private void jumlahTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jumlahTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jumlahTextFieldActionPerformed
+
+    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+        String kodeInput = kodeTextField.getText();
+        String jumlah = jumlahTextField.getText();
+        Barang tempBarang;
+        for (int i = 0; i < daftarBarang.size(); i++) 
+        {
+            tempBarang = daftarBarang.get(i);
+            int tempIndex = 0 ;
+            daftarModel.setValueAt(jumlahBelanja, tempIndex, 0);
+            daftarModel.setValueAt(kodeInput, tempIndex, 1);
+            daftarModel.setValueAt(tempBarang.nama, tempIndex, 2);
+            daftarModel.setValueAt(tempBarang.harga, tempIndex, 3);
+            daftarModel.setValueAt(jumlah, tempIndex, 4);
+        }
+        
+    }//GEN-LAST:event_insertButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -482,18 +512,20 @@ public class POSFrame extends javax.swing.JFrame {
     private javax.swing.JTable daftarTable;
     private javax.swing.JTextField dibayarTextField;
     private javax.swing.JTextField hargaTextField;
+    private javax.swing.JButton insertButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JButton keAdmin;
+    private javax.swing.JTextField jumlahTextField;
     private javax.swing.JTextField kembalianTextField;
     private javax.swing.JTextField kodeTextField;
     private javax.swing.JTextField namaTextField;
