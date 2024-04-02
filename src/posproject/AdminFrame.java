@@ -44,14 +44,21 @@ public class AdminFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        activityLog1 = new posproject.ActivityLog();
+        activityLog2 = new posproject.ActivityLog();
         panelBorder1 = new posproject.PanelBorder();
         menu1 = new posproject.Menu();
+<<<<<<< HEAD
+        header1 = new posproject.Header();
+=======
         lblSnama = new javax.swing.JLabel();
+>>>>>>> 2e4341c8963ffbcadbd843a7356ab968fc01208e
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
+        panelBorder1.setBackground(new java.awt.Color(204, 204, 204));
+        panelBorder1.setForeground(new java.awt.Color(242, 242, 242));
 
         lblSnama.setText("jLabel1");
 
@@ -61,17 +68,27 @@ public class AdminFrame extends javax.swing.JFrame {
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBorder1Layout.createSequentialGroup()
                 .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
+                .addGap(0, 0, 0)
+                .addComponent(header1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE))
+=======
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSnama)
                 .addGap(0, 459, Short.MAX_VALUE))
+>>>>>>> 2e4341c8963ffbcadbd843a7356ab968fc01208e
         );
         panelBorder1Layout.setVerticalGroup(
             panelBorder1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menu1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
             .addGroup(panelBorder1Layout.createSequentialGroup()
+<<<<<<< HEAD
+                .addComponent(header1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+=======
                 .addGap(38, 38, 38)
                 .addComponent(lblSnama)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+>>>>>>> 2e4341c8963ffbcadbd843a7356ab968fc01208e
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -125,7 +142,13 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+<<<<<<< HEAD
+    private posproject.ActivityLog activityLog1;
+    private posproject.ActivityLog activityLog2;
+    private posproject.Header header1;
+=======
     private javax.swing.JLabel lblSnama;
+>>>>>>> 2e4341c8963ffbcadbd843a7356ab968fc01208e
     private posproject.Menu menu1;
     private posproject.PanelBorder panelBorder1;
     // End of variables declaration//GEN-END:variables

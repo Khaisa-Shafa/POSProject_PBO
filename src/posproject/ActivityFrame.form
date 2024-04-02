@@ -109,11 +109,13 @@
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" pref="105" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jDateChooser1" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="dariTanggal" min="-2" pref="153" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jDateChooser2" min="-2" pref="153" max="-2" attributes="0"/>
+                          <Component id="sampaiTanggal" min="-2" pref="153" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="ButtonInputTanggal" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jSeparator1" min="-2" pref="1038" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
@@ -134,8 +136,9 @@
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
+                      <Component id="dariTanggal" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="sampaiTanggal" min="-2" max="-2" attributes="0"/>
+                      <Component id="ButtonInputTanggal" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="3" max="-2" attributes="0"/>
@@ -202,7 +205,7 @@
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="5" resizable="true">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="5" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -285,7 +288,7 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator4">
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="com.toedter.calendar.JDateChooser" name="dariTanggal">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -295,9 +298,17 @@
             <Property name="text" type="java.lang.String" value="Sampai Tanggal :"/>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+        <Component class="com.toedter.calendar.JDateChooser" name="sampaiTanggal">
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
+        </Component>
+        <Component class="javax.swing.JButton" name="ButtonInputTanggal">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pilih"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ButtonInputTanggalActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
