@@ -72,7 +72,7 @@
                   <Component id="form_Home1" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="menu1" min="-2" pref="199" max="-2" attributes="0"/>
+                  <Component id="menu1" min="-2" pref="270" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -82,6 +82,9 @@
         <Component class="posproject.Menu" name="menu1">
         </Component>
         <Component class="posproject.Header" name="header1">
+          <Events>
+            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="header1AncestorAdded"/>
+          </Events>
         </Component>
         <Container class="posproject.Form_Home" name="form_Home1">
 
