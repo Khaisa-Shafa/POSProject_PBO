@@ -29,6 +29,16 @@ public class AdminFrame extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
 
+        header1.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                header1AncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
         javax.swing.GroupLayout form_Home1Layout = new javax.swing.GroupLayout(form_Home1);
         form_Home1.setLayout(form_Home1Layout);
         form_Home1Layout.setHorizontalGroup(
@@ -62,7 +72,7 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(form_Home1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelBorder1Layout.createSequentialGroup()
-                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(menu1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -80,6 +90,10 @@ public class AdminFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void header1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_header1AncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_header1AncestorAdded
 
     /**
      * @param args the command line arguments

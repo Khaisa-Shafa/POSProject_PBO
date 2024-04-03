@@ -253,7 +253,7 @@ public class POSFrame_login extends javax.swing.JFrame {
     }//GEN-LAST:event_t_passwordFocusLost
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
-        
+    
         try 
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -277,9 +277,9 @@ public class POSFrame_login extends javax.swing.JFrame {
                 
                 if(username.equals("admin") && hashedPassword.equals(storedHashPassword)) {
                     JOptionPane.showMessageDialog(this, "Halo " + rs.getString("username"));
-                    Session.set_nama(rs.getString("username"));
-                    Session.set_id(rs.getString("id"));
-                    Session.set_level(rs.getString("level"));
+//                    Session.set_nama(rs.getString("username"));
+//                    Session.set_id(rs.getString("id"));
+//                    Session.set_level(rs.getString("level"));
                     AdminFrame admin = new AdminFrame();
                     admin.setVisible(true);
 
